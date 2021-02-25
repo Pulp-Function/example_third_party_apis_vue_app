@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    {{ posts }}
+    <div v-for="post in redditPosts" v-bind:key="post.data.name">
+      {{ post.data.title }}
+    </div>
   </div>
 </template>
 
@@ -15,6 +17,7 @@ export default {
     return {
       message: "Welcome to Vue.js!",
       posts: [],
+      redditPosts: [],
     };
   },
   created: function() {
@@ -22,8 +25,9 @@ export default {
       console.log(response.data);
       this.posts = response.data;
     });
-    axios.get("https://www.reddit.com/r/programming/.json").then(response => {
+    axios.get("/api/redditstuff").then(response => {
       console.log(response.data);
+      this.redditPosts = response.data.children;
     });
   },
   methods: {},
