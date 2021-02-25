@@ -22,6 +22,9 @@ export default {
       console.log(response.data);
       this.posts = response.data;
     });
+    axios.get("https://www.reddit.com/r/programming/.json").then(response => {
+      console.log(response.data);
+    });
   },
   methods: {},
 };
